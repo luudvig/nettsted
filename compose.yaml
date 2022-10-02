@@ -1,0 +1,17 @@
+services:
+  filebrowser:
+    environment:
+      - PUID=${UID:?err}
+      - PGID=${GID:?err}
+    image: filebrowser/filebrowser:s6
+    volumes:
+      - ./filebrowser.db:/database/filebrowser.db
+      - ./filebrowser.json:/config/settings.json:ro
+      - ./filebrowser.root:/srv
+  nginx:
+    image: nginxinc/nginx-unprivileged:stable
+    ports:
+      - "80:8080"
+    volumes:
+      - ./nginx.conf.d:/etc/nginx/conf.d:ro
+      - ./nginx.html:/usr/share/nginx/html
