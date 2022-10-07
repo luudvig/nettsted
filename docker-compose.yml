@@ -8,7 +8,7 @@ services:
       - database__connection__user=root
       - database__connection__password=${MYSQL_ROOT_PASSWORD:?err}
       - database__connection__database=ghost
-      - url=http://localhost
+      - url=https://${GHOST_PUBLIC_URL:?err}
     image: ghost:5.17.1
     restart: always
     volumes:
@@ -25,6 +25,16 @@ services:
   ghost-proxy:
     image: nginxinc/nginx-unprivileged:1.22.0
     ports:
-      - "80:8080"
+      - "80:80"
+      - "443:443"
+    secrets:
+      - ssl_certificate
+      - ssl_certificate_key
     volumes:
       - ./nginx.conf.d:/etc/nginx/conf.d:ro
+
+secrets:
+  ssl_certificate:
+    file: ./secrets/${GHOST_PUBLIC_URL:?err}.crt
+  ssl_certificate_key:
+    file: ./secrets/${GHOST_PUBLIC_URL:?err}.key
