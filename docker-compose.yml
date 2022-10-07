@@ -23,10 +23,11 @@ services:
       - ./data-db:/var/lib/mysql
 
   ghost-proxy:
-    image: nginxinc/nginx-unprivileged:1.22.0
+    image: nginx:1.22.0
     ports:
       - "80:80"
       - "443:443"
+    restart: always
     secrets:
       - ssl_certificate
       - ssl_certificate_key
