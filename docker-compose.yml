@@ -9,7 +9,7 @@ services:
       - database__connection__password=${MYSQL_ROOT_PASSWORD:?err}
       - database__connection__database=ghost
       - url=https://${GHOST_PUBLIC_URL:?err}
-    image: ghost:5.17.1
+    image: ghost:5.17.2
     restart: always
     volumes:
       - ./data:/var/lib/ghost/content
