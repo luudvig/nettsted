@@ -9,7 +9,7 @@ services:
       - database__connection__password=${MYSQL_ROOT_PASSWORD:?err}
       - database__connection__database=ghost
       - url=https://${GHOST_PUBLIC_URL:?err}
-    image: ghost:5.20.0
+    image: ghost:5
     restart: always
     volumes:
       - ./data:/var/lib/ghost/content
@@ -17,13 +17,13 @@ services:
   ghost-db:
     environment:
       - MYSQL_ROOT_PASSWORD
-    image: mysql:8.0.31
+    image: mysql:8.0
     restart: always
     volumes:
       - ./data-db:/var/lib/mysql
 
   ghost-proxy:
-    image: nginx:1.22.1
+    image: nginx:stable
     ports:
       - "80:80"
       - "443:443"
