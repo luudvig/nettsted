@@ -1,0 +1,22 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    server_name ${GHOST_PUBLIC_URL_A} www.${GHOST_PUBLIC_URL_A};
+    set $upstream site-a;
+
+    include conf.d/http;
+}
+
+server {
+    server_name ${GHOST_PUBLIC_URL_B} www.${GHOST_PUBLIC_URL_B};
+    set $upstream site-b;
+
+    include conf.d/http;
+}

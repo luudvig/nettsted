@@ -1,5 +1,6 @@
 /data-db.tgz
 /data-db/
-/data.tgz
-/data/
-/secrets/
+/data-site-a.tgz
+/data-site-a/
+/data-site-b.tgz
+/data-site-b/
