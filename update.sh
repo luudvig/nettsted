@@ -8,12 +8,12 @@ then
     exit 1
 fi
 
-/usr/bin/docker compose --file ${1}/docker-compose.yml pull
+/usr/bin/docker compose --file ${1}/docker-compose.yml pull --quiet
 /usr/bin/docker compose --file ${1}/docker-compose.yml down
 
-/usr/bin/tar --create --directory=${1} --file=${1}/data-site-a.tgz --gzip data-site-a
-/usr/bin/tar --create --directory=${1} --file=${1}/data-site-b.tgz --gzip data-site-b
-/usr/bin/tar --create --directory=${1} --file=${1}/data-db.tgz --gzip data-db
+/usr/bin/tar --create --directory=${1} --file=${1}/data-site-a.tgz --gzip --verbose data-site-a
+/usr/bin/tar --create --directory=${1} --file=${1}/data-site-b.tgz --gzip --verbose data-site-b
+/usr/bin/tar --create --directory=${1} --file=${1}/data-db.tgz --gzip --verbose data-db
 
 for executable in $(/usr/bin/find ${1}/update.d -executable -type f)
 do
@@ -21,4 +21,4 @@ do
 done
 
 /usr/bin/docker compose --file ${1}/docker-compose.yml up --detach
-/usr/bin/docker image prune --all --force > $(/usr/bin/mktemp)
+/usr/bin/docker image prune --all --force
